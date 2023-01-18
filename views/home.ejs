@@ -1,0 +1,19 @@
+<!-- header include -->
+<%- include("./partials/header"); -%>
+<!-- Blog Content -->
+<a href="compose" class="c-btn">compose</a>
+
+<div class="blog-container">
+  <h1 style="margin-bottom: 1rem">Home</h1>
+  <% items.forEach(function(i){ %>
+  <h3><%=i.title%></h3>
+  <p class="blog">
+    <%=i.text.slice(0,120) + " ...."%>
+    <a href=/<%=i._id%>>Read More</a>
+    <p><%=i._id%></p>
+  </p>
+  <br />
+  <% }) %>
+</div>
+<!-- footer include -->
+<%- include("./partials/footer"); -%>
