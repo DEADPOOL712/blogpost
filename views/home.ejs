@@ -1,19 +1,20 @@
 <!-- header include -->
 <%- include("./partials/header"); -%>
 <!-- Blog Content -->
-<a href="compose" class="c-btn">compose</a>
-
+<!-- <a href="compose" class="c-btn">compose</a> -->
 <div class="blog-container">
-  <h1 style="margin-bottom: 1rem">Home</h1>
-  <% items.forEach(function(i){ %>
-  <h3><%=i.title%></h3>
-  <p class="blog">
-    <%=i.text.slice(0,120) + " ...."%>
-    <a href=/<%=i._id%>>Read More</a>
-    <p><%=i._id%></p>
-  </p>
-  <br />
+  <h2 style="margin-bottom: 1rem">Recent post</h2>
+  <hr />
+  <% posts.forEach(function(post){ %>
+  <div class="posts">
+    <h3 class="post-title"><%=post.title%></h3>
+    <p>
+      <%=post.text.slice(0,270) + " ...."%>
+      <a href="posts/<%=post._id%>" class="readmore">Read More</a>
+    </p>
+  </div>
   <% }) %>
 </div>
+
 <!-- footer include -->
 <%- include("./partials/footer"); -%>

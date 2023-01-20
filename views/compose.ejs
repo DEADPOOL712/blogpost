@@ -2,25 +2,24 @@
 <%- include("./partials/header"); -%>
 <!-- composer -->
 <div class="compose-container">
-  <form class="compose-form" action="/compose" method="post">
-    <div class="mb-3">
-      <label for="Heading" class="form-label">Heading</label>
-      <input type="text" class="form-control" name="postTitle" />
-    </div>
-    <div class="mb-3">
-      <label for="text" class="form-label">Post</label>
-      <textarea
-        name="postText"
-        class="form-control"
-        cols="30"
-        rows="10"
-      ></textarea>
-    </div>
-
-    <button type="submit" style="background-color: #22a39f" class="btn">
-      Publish
-    </button>
-  </form>
+  <section id="contact-form">
+    <form
+      id="contact"
+      name="contact"
+      accept-charset="utf-8"
+      action="/compose"
+      method="post"
+    >
+      <label
+        ><span>title</span
+        ><input name="Heading" type="text" placeholder="Heading"
+      /></label>
+      <label
+        ><span>text</span><textarea name="Body" placeholder="Body"></textarea>
+      </label>
+      <input name="submit" type="submit" value="Publish" />
+    </form>
+  </section>
 </div>
 <!-- footer include -->
 <%- include("./partials/footer"); -%>

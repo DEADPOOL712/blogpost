@@ -1,17 +1,4 @@
-//======= starting content ===========//
-const homePage = [
-  {
-    title: "Example",
-    text: " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor at cupiditate fugit consequuntur necessitatibus officiis voluptate voluptatem quibusdam. In rem voluptas quo, repellendus illum corrupti voluptatibus incidunt! Molestias dolor ad deserunt rerum accusantium animi. Quasi dolore eius labore atque minima laboriosam expedita vero magnam unde fuga doloremque, assumenda esse illo.",
-  },
-];
-const aboutPage =
-  " Welcome to ReadingRealm, a community for book enthusiasts and bloggers to share their thoughts and reviews on the latest reads. Our platform is dedicated to fostering a love of literature and encouraging the exchange of ideas among readers. Whether you're a seasoned blogger or just starting out, we invite you to join our community and share your passion for books with others. From gripping fiction to thought-provoking non-fiction, there's something for everyone on ReadingRealm. Start exploring today and discover a world of books waiting to be read. Happy blogging! ";
-
-const contactPage =
-  " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor at cupiditate fugit consequuntur necessitatibus officiis voluptate voluptatem quibusdam. In rem voluptas quo, repellendus illum corrupti voluptatibus incidunt! Molestias dolor ad deserunt rerum accusantium animi. Quasi dolore eius labore atque minima laboriosam expedita vero magnam unde fuga doloremque, assumenda esse illo.";
-
-//==== importing =====//
+//==== Node Modules =====//
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -23,77 +10,85 @@ const url = "mongodb+srv://Admin-Vaibhav:vaibhav712@cluster0.o7loowq.mongodb.net
 
 //===== connectiong to the database =====//
 mongoose.set("strictQuery", false);
-mongoose
-  .connect(url, {
-    useNewUrlParser: true,
-  })
-  .then(() => {
-    console.info("Connected to atlas");
-  })
-  .catch((error) => {
-    console.log("Error : ", error);
-  });
+mongoose.connect(url, {
+  useNewUrlParser: true,
+});
 //===== schema of data set or collection
 const postSchema = new mongoose.Schema({
   title: String,
   text: String,
+  date: String,
 });
 //===== creating model using schema ====//
-const Posts = mongoose.model("Posts", postSchema);
+const postcollection = mongoose.model("postcollection", postSchema);
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //======== handaling get request from browser || Home page ==========//
-app.get("/", function (req, res) {
-  Posts.find(function (err, data) {
+app.get("/", (req, res) => {
+  postcollection.find((e, data) => {
     if (data.length === 0) {
-      res.render("example");
+      res.render("about");
     } else {
-      res.render("home", { items: data });
+      res.render("home", { posts: data });
     }
   });
 });
-
-//======== handaling get request from browser || Contact page ==========//
-app.get("/contact", function (req, res) {
-  res.render("contact", { contactPageContent: contactPage });
+//======== Contact page ==========//
+app.get("/contact", (req, res) => {
+  res.render("contact");
 });
 
-//======== handaling get request from browser || about page ==========//
-app.get("/about", function (req, res) {
-  res.render("about", { aboutPageContent: aboutPage });
+//======== about page ==========//
+app.get("/about", (req, res) => {
+  res.render("about");
 });
 
-// ======== compose page handaling get and post ======= //
-app.get("/compose", function (req, res) {
+// ======== compose page ======= //
+app.get("/compose", (req, res) => {
   res.render("compose");
 });
-app.post("/compose", function (req, res) {
-  const postNew = new Posts({
-    title: req.body.postTitle,
-    text: req.body.postText,
+
+// ======== saving post data into database ======= //
+app.post("/compose", (req, res) => {
+  var options = {
+    // weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  var today = new Date();
+  var formatedDate = today.toLocaleDateString("en-US", options);
+  const newPost = new postcollection({
+    title: req.body.Heading,
+    text: req.body.Body,
+    date: formatedDate,
   });
-  postNew.save(function (err) {
-    if (err) {
-      res.send(`<h1>${err}</h1>`);
-      return;
+  newPost.save((e) => {
+    if (e) {
+      console.info(e);
+    } else {
+      console.log("Save into dataBase !!");
+      res.redirect("/");
     }
-    console.log("Save into dataBase !!");
-    res.redirect("/");
   });
 });
 
-//===== creating new response base on the click ====//
-app.get("/:postName/", function (req, res) {
+//===== creating dynamic page ====//
+app.get("/posts/:postName/", function (req, res) {
   const requestedId = req.params.postName;
-  Posts.findOne({ _id: requestedId }, function (err, p) {
-    res.render("open", { title: p.title, text: p.text });
+  console.log(requestedId);
+  postcollection.findOne({ _id: requestedId }, function (err, post) {
+    console.log(post);
+    // console.log(__dirname);
+    res.render("open", { title: post.title, text: post.text, date: post.date });
   });
 });
 
 //======== starting the server ==========//
-app.listen(process.env.PORT || 3000, function () {
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
   console.log("Server is running on port 3000");
 });

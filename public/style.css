@@ -1,169 +1,280 @@
+:root {
+  --purple: #c534e1;
+  --nav_white: #f4f4f4;
+  --red: #ff4f4f;
+}
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
 }
-
 body {
-  width: 100%;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  background-color: #f3efe0;
-  font-family: "Roboto", sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  min-height: 100vh;
 }
-
-/* ========= BIG SCREEN STYLES ================== */
-header {
-  width: 100%;
-  min-height: 70px;
-  background-color: #434242;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-nav {
-  width: 90%;
-  max-width: 1000px;
-  height: 7vh;
-  min-height: 80px;
-  padding-top: 8px;
-  background-color: inherit;
-  color: #22a39f;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: baseline;
-}
-nav .logo {
-  font-size: 38px;
-}
-.navList {
-  font-size: 17px;
-  text-transform: uppercase;
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-nav a {
-  color: inherit;
-  text-decoration: none;
-}
-.navBtn {
+.mobile {
+  text-align: center;
+  margin-top: 50%;
+  color: white;
+  font-family: "lato";
+  padding: 7%;
   display: none;
-  cursor: pointer;
 }
-/* 3divs for 3line button */
-.navBtn div {
-  width: 30px;
-  height: 2px;
-  margin: 5px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 2px;
-  transition: all 0.5s ease-in;
-}
-
-/* ============ SMALL SCREEN STYLES ============= */
-@media screen and (max-width: 768px) {
-  nav {
-    padding: 0;
-    align-items: center;
+/* Not supporetd  */
+@media (max-width: 769px) {
+  body {
+    background-color: #333;
   }
-
-  .navList {
-    /* stick the ul (navList) to a window just below navbar  */
-    position: absolute;
-    right: 0px;
-    height: 93vh;
-    top: clamp(60px, 7vh, 7vh);
-    /* li from row to column */
-    flex-direction: column;
-    gap: 5vh;
-    align-items: center;
-    /* make it a bit pretty :) */
-    padding: 5vh 15vw;
-    background-color: #434242;
-    font-size: 26px;
-    letter-spacing: 1px;
-    /* blur the background */
-    backdrop-filter: blur(5px);
-    /* will move container off the screen temporarly :)*/
-    transform: translate(100%);
-    transition: transform 0.5s ease-out;
+  .header,
+  footer {
+    display: none;
   }
-
-  .navLi {
-    opacity: 0;
+  .blog-container {
+    display: none;
   }
-
-  .navBtn {
+  .mobile {
     display: block;
   }
 }
 
-.navActive {
-  transform: translate(0%);
+::selection {
+  background-color: var(--red);
+  color: white;
 }
-@keyframes SlideIn {
-  from {
-    opacity: 0;
-    transform: translate(250px, 0);
+
+/* =====================================================================
+==================================== Header ============================
+======================================================================== */
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+h2,
+h3,
+a {
+  color: black;
+  text-decoration: none;
+}
+.logo {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  font-size: 1.45em;
+}
+
+.main-nav {
+  margin-top: 5px;
+}
+.logo a,
+.main-nav a {
+  padding: 10px 15px;
+  /* text-transform: uppercase; */
+  text-align: center;
+  display: block;
+}
+.logo a span {
+  color: var(--red);
+}
+.main-nav a {
+  color: black;
+  font-size: 0.99em;
+}
+
+.main-nav a:hover {
+  color: var(--purple);
+}
+
+.header {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border: 1px solid #a2a2a2;
+  background-color: var(--nav_white);
+  -webkit-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+@media (min-width: 769px) {
+  .header,
+  .main-nav {
+    display: flex;
   }
-
-  to {
-    opacity: 1;
-    transform: translate(0, 0);
+  .header {
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+}
+@media (min-width: 1025px) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 
-.navBtnToggle .line1 {
-  transform: rotate(-45deg) translate(-4px, 6px);
-}
-
-.navBtnToggle .line2 {
-  transform: scale(0) translate(10px, 0);
-}
-
-.navBtnToggle .line3 {
-  transform: rotate(45deg) translate(-4px, -6px);
-}
-
+/* =====================================================================
+==================================== Home Page =========================
+======================================================================== */
 .blog-container {
-  padding: 7% 15%;
-  min-height: 100vh;
-  font-family: "Roboto", sans-serif;
+  padding: 5% 15% 10% 15%;
+  height: 100vh;
+  overflow: scroll;
+  margin-bottom: 10%;
+  overflow-x: hidden; /* Hide vertical scrollbar */
+  overflow-y: hidden; /* Hide vertical scrollbar */
 }
+.posts {
+  padding-top: 23px;
+  padding-bottom: 1rem;
+  border-bottom: 2px dashed #ccc;
+}
+.post-title {
+  /* color: var(--purple); */
+  font-weight: 600;
+}
+.readmore {
+  color: var(--red);
+}
+/* =====================================================================
+================================== Contact Page =========================
+======================================================================== */
 .contact-container {
-  padding: 7% 15%;
+  padding: 3% 15%;
   min-height: 100vh;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
+.cf {
+  max-width: 600px;
+  text-align: center;
+  margin: 20px auto;
+}
+input,
+textarea {
+  border: 0;
+  outline: 0;
+  padding: 1em;
+  border-radius: 8px;
+  display: block;
+  width: 100%;
+  margin-top: 1em;
+  font-family: "Merriweather", sans-serif;
+  box-shadow: 0 1px 1px rgba(black, 0.1);
+  resize: none;
+}
+#input-submit {
+  color: white;
+  background: red;
+  cursor: pointer;
+}
+#input-submit:hover {
+  background-color: #ff4f4f;
+}
+textarea {
+  height: 126px;
+}
+.half {
+  float: left;
+  width: 48%;
+  margin-bottom: 1em;
+}
+
+.right {
+  width: 50%;
+}
+.left {
+  margin-right: 2%;
+}
+/* Clearfix */
+.cf:before,
+.cf:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.cf:after {
+  clear: both;
+}
+/* =====================================================================
+==================================== footer =========================
+======================================================================== */
 footer {
-  background-color: #434242;
+  background-color: var(--nav_white);
   padding: 7% 15%;
-  color: #22a39f;
+  color: var(--purple);
   text-align: center;
   min-height: 50px;
   font-size: 21px;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 
+/* =====================================================================
+================================= compose page =========================
+======================================================================== */
 .compose-container {
   padding: 5% 15%;
+  min-height: 80vh;
 }
-.c-btn {
-  position: absolute;
-  padding: 10px;
-  top: 120px;
-  text-decoration: none;
-  color: black;
-  border-radius: 5px;
-  font-weight: 400;
-  background-color: #22a39f;
-  right: 120px;
+h2 {
+  margin: 0;
+  color: #8495a5;
+  font-size: 2em;
+  font-weight: 300;
 }
-.c-btn:hover {
-  color: black;
-  opacity: 0.8;
+#contact-form {
+  max-width: 1208px;
+  max-width: 75.5rem;
+  margin: 0 auto;
+}
+#contact,
+label,
+input[name="submit"] {
+  position: relative;
+}
+label > span,
+input,
+textarea,
+button {
+  box-sizing: border-box;
+}
+label {
+  display: block;
+}
+label > span {
+  display: none;
+}
+input,
+textarea,
+button {
+  width: 100%;
+  padding: 0.5em;
+  border: none;
+  font: 300 100%/1.2 Ubuntu, sans-serif;
+}
+input[type="text"],
+input[type="email"],
+textarea {
+  margin: 0 0 1em;
+  border: 1px solid #ccc;
+  outline: none;
+}
+input.invalid,
+textarea.invalid {
+  border-color: #d5144d;
+}
+textarea {
+  height: 16em;
+}
+input[type="submit"],
+button {
+  background: #ff8a8a;
+  color: #333;
+}
+input[type="submit"]:hover,
+button:hover {
+  background: var(--red);
 }

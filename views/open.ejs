@@ -1,7 +1,163 @@
-<%- include("./partials/header"); -%>
-<div class="blog-container">
-  <h3><%=title%></h3>
-  <br />
-  <p class="blog"><%=text%></p>
-</div>
-<%- include("./partials/footer"); -%>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReadingRealm</title>
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&family=Playfair+Display&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <style>
+      :root {
+        --purple: #c534e1;
+        --nav_white: #f4f4f4;
+        --red: #ff4f4f;
+      }
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        min-height: 100vh;
+      }
+      ::selection {
+        background-color: var(--red);
+        color: white;
+      }
+      /* =====================================================================
+==================================== Header ============================
+======================================================================== */
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      h2,
+      h3,
+      a {
+        color: black;
+        text-decoration: none;
+      }
+      .logo {
+        margin: 0;
+        font-size: 1.45em;
+      }
+
+      .main-nav {
+        margin-top: 5px;
+      }
+      .logo a,
+      .main-nav a {
+        padding: 10px 15px;
+        /* text-transform: uppercase; */
+        text-align: center;
+        display: block;
+      }
+      .logo a span {
+        color: var(--red);
+      }
+      .main-nav a {
+        color: black;
+        font-size: 0.99em;
+      }
+
+      .main-nav a:hover {
+        color: var(--purple);
+      }
+
+      .header {
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        border: 1px solid #a2a2a2;
+        background-color: var(--nav_white);
+        -webkit-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+      }
+      @media (min-width: 769px) {
+        .header,
+        .main-nav {
+          display: flex;
+        }
+        .header {
+          flex-direction: column;
+          align-items: center;
+          width: 80%;
+          margin: 0 auto;
+          max-width: 1150px;
+        }
+      }
+      @media (min-width: 1025px) {
+        .header {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+      /* =====================================================================
+==================================== footer =========================
+======================================================================== */
+      footer {
+        background-color: var(--nav_white);
+        padding: 7% 15%;
+        color: var(--purple);
+        text-align: center;
+        min-height: 50px;
+        font-size: 21px;
+        font-family: "Roboto", sans-serif;
+      }
+      .fullblog {
+        /* font-family: "Lato", sans-serif; */
+        font-family: "Playfair Display", serif;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NavigationBar & header  -->
+    <header class="header">
+      <h1 class="logo">
+        <a href="/">Reading<span>Realm</span></a>
+      </h1>
+      <ul class="main-nav">
+        <li><a href="/">HOME</a></li>
+        <li><a href="/">COMPOSE</a></li>
+        <li><a href="/">ABOUT</a></li>
+        <li><a href="/">CONTACT</a></li>
+      </ul>
+    </header>
+    <div style="padding: 7% 15%; min-height: 90vh" class="fullblog">
+      <h1 class="title"><%=title%></h1>
+      <hr />
+      <br />
+
+      <p class="blog">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=text%></p>
+      <p
+        style="
+          color: white;
+          font-size: 12px;
+          text-align: right;
+          user-select: none;
+        "
+      >
+        <span style="background-color: var(--red); padding: 2.5px">
+          <%= date %>
+        </span>
+      </p>
+    </div>
+    <footer>
+      <p>Made by Vaibhav.</p>
+    </footer>
+  </body>
+</html>
